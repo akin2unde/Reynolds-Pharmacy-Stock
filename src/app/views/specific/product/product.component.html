@@ -1,0 +1,82 @@
+<div class="h-full container flex flex-col">
+    <span class="font-semibold text-gray-400 m-2">Product(s)</span>
+    <div class="justify-end flex">
+        <button class="btn w-20" (click)="product=xchangeservice.initProductObj();toggleCUDComponent(true)">New</button>
+    </div>
+    <!-- Items -->
+    <div class="p-4  grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"> 
+      @for (item of products; track item; let index= $index) {
+           <div class=" bg-white rounded-lg shadow-lg p-4 mx-2 ">
+            <div class="flex justify-between">
+               <span class="text-sm text-primary-400 flex items-center">
+                {{item.code}}
+               </span> 
+              <span class=" inline-flex items-center justify-center w-6 h-6  font-bold  rounded-full  dark:border-gray-900 bg-green-500 text-white  text-xs " >{{item.quantity}}</span>
+            </div>
+            
+               <div class="flex  mt-1">
+                 <img [src]="getSvg('drug.svg')" class="object-contain w-10 h-10"/>
+                   <h3 class="my-2 ml-3 text-lg font-bold text-gray-800">{{item.name}}</h3>
+               </div>
+               <p class="my-2 text-primary-300">{{item.description}} </p>
+                <p class="my-2 flex justify-end text-primary-300">{{item.category}} </p>
+               <hr class="h-px my-4 bg-primary-200 border-0 dark:bg-gray-700">
+
+            <div class="flex justify-between">
+                <div class="flex items-center gap-2">
+                    <img [src]="getSvg('clock.svg')" class="object-contain"/>
+                    <p class="text-primary-400 ">
+                        {{item.createdAt|date: 'dd/MM/yyyy'}}
+                     </p>
+                </div>
+                <img [src]="getSvg('edit.svg')" (click)="product=item; toggleCUDComponent(true)" class="object-contain cursor-pointer w-[30px]"/>
+            </div>
+            </div>
+       }
+    </div>
+</div>
+
+
+
+<p-sidebar
+  styleClass="w-30rem"
+  [(visible)]="show"
+  position="right"
+>
+  <ng-template pTemplate="header">
+    <p class="font-medium text-lg sm:text-2xl">Product</p>
+  </ng-template>
+  <ng-template pTemplate="closeicon">
+    <img [src]="getSvg('slider-close-icon.svg')" />
+  </ng-template>
+  <div *ngIf="product" class="slidebar-container">
+    <ng-container>
+      <div class="h-full container flex flex-col">
+           <form #fm="ngForm">
+            <div class=" flex flex-col  gap-2">
+                <div class="form-control-group" #frmControlName>
+                    <label class="text-sm" for="name" class="form-control-label">Name</label>
+                    <input frm-ctrl-val  [blockLeadTrailSpace]="true" [parent]="frmControlName" [valueRequired]="true" type="text" id="name" name="name" #name="ngModel" [(ngModel)]="product.name" placeholder="Name"  class="form-control-input" >
+                </div>
+                <div class="form-control-group" #frmControlDescription>
+                    <label class="text-sm" for="description" class="form-control-label">Description</label>
+                    <textarea frm-ctrl-val [parent]="frmControlDescription" [minLen]=5 [minLenError]="'Description  be more than 5 characters'"  type="text" id="description" name="description" #description="ngModel" [(ngModel)]="product.description" placeholder="Description" required minlength="1" maxlength="500" class="form-control-input">
+                    </textarea> 
+                </div>
+                <div class="form-control-group" #frmControlCategory>
+                    <label class="text-sm" for="form-control-label">Category</label>
+                    <input frm-ctrl-val [minLen]=3 [blockLeadTrailSpace]="true" [parent]="frmControlCategory" [valueRequired]="true"  id="category"  name="category" #category="ngModel" [(ngModel)]="product.category" placeholder="Category"  class="form-control-input" >
+                </div>
+                  <div class="form-control-group" #frmControlQty>
+                    <label class="text-sm" for="form-control-label">Quantity</label>
+                    <input frm-ctrl-val type="number" [parent]="frmControlQty" [valueRequired]="true"  id="qty"  name="qty" #qty="ngModel" [(ngModel)]="product.quantity" placeholder="Quantity"  class="form-control-input" >
+                </div>
+                <div class="flex justify-center">
+                      <button [ngClass]="{'disable':fm.invalid}" class="btn m-4 w-24 text-lg" (click)="save()">Save</button>
+                </div>
+            </div>  
+        </form>
+       </div>
+    </ng-container>
+  </div>
+</p-sidebar>

@@ -1,0 +1,58 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+  }
+  .btn{
+    @apply bg-control text-white rounded-xl p-2 shadow-sm cursor-pointer text-sm
+  }
+  .tb{
+    @apply  focus:text-primary-darkest
+             focus:border-primary-400
+              focus:outline-0
+               focus:shadow-utility
+                appearance-none
+                 rounded-lg p-2.5
+                  text-sm font-light
+                   text-primary-darkest
+                    bg-white bg-clip-padding
+                     border border-solid
+                      border-primary-200
+
+  }
+  .form-control-group-row{
+    @apply flex  p-1 gap-1  my-1
+  }
+  .form-control-group{
+    @apply flex flex-col p-1 gap-1
+  }
+  .form-control-label
+  {
+    @apply block text-sm font-medium text-gray-700
+  }
+  .form-control-input
+  {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:border-primary-300 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+  }
+  .disable
+  {
+    @apply bg-gray-300 px-4 py-2 rounded-md cursor-not-allowed opacity-50
+  }
+  .p-sidebar
+  {
+    @apply bg-primary-100
+  }
+  .p-dropdown, .p-multiselect {
+    @apply bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:border-primary-300 w-full 
+  }
+  .view-header
+  {
+    @apply flex p-2 justify-between
+  }

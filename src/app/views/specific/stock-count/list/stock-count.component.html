@@ -1,0 +1,84 @@
+<div class="h-full container flex flex-col">
+    <span class="font-semibold text-gray-400 m-2">Stock Count Event(s)</span>
+    <div class="justify-end flex mb-2">
+        <button class="btn w-20" (click)="goToPageChild(['stock-count-item','new'])">New</button>
+    </div>
+  <p-table
+    [value]="storeCounts"
+    dataKey="code"
+    [scrollable]="true"
+    [tableStyle]="{ 'min-width': '80rem' }"
+    styleClass="p-datatable-striped p-datatable-lg"
+    scrollHeight="50vh"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="code" style="width: 15%">
+          Code
+        </th>
+        <th pSortableColumn="description" style="width: 50%">
+          Description
+        </th>
+        <th pSortableColumn="countedBy" style="width: 15%">
+          Counted By
+        </th>
+        <th style="width: 10%">
+           Count
+        </th>
+        <th pSortableColumn="status" style="width: 10%">
+          Status
+        </th>
+        <th style="width: 7%"></th>
+        <th style="width: 8%"></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
+      <tr>
+        <td class="text-sm">
+          {{record.code}}
+        </td>
+        <td class="text-sm">
+          {{ record.description }}
+        </td>
+        <td class="text-sm">
+          {{ record.countedBy}}
+        </td>
+        <td class="text-sm">
+          {{ record.itemObjects.length}}
+        </td>
+        <td class="text-sm">
+          <span *ngIf="record.status== status.abandoned" class="bg-red-600 text-white p-2 rounded-sm">
+            {{ record.status }}
+          </span>
+          <span *ngIf="record.status== status.completed" class="bg-green-600 text-white p-2 rounded-sm">
+            {{ record.status }}
+          </span>
+          <span *ngIf="record.status== status.pending" class="bg-orange-600 text-white p-2 rounded-sm">
+            {{ record.status }}
+          </span>
+          
+        </td>
+        <td class="text-sm">
+          <div
+            (click)="edit(record)"
+            class="flex align-items-center gap-1 cursor-pointer"
+          >
+           <img *ngIf="record.status==status.pending" [src]="getSvg('edit.svg')" (click)="goToPageChild(['stock-count-item',record.code])" class="object-contain cursor-pointer w-[30px]"/>
+           <span *ngIf="record.status==status.completed || record.status==status.abandoned" (click)="goToPageChild(['stock-count-item',record.code])" class="bg-black text-white p-2 rounded-sm">View</span> 
+          </div>
+        </td>
+        <td class="text-sm">
+          <div
+            *ngIf="record.status==status.pending"
+            (click)="delete(record)"
+            class="flex align-items-center gap-1 cursor-pointer bg-red-700 text-white"
+          >
+           <img [src]="getSvg('trash-x.svg')" (click)="goToPageChild(['stock-count-item',record.code])" class="object-contain cursor-pointer w-[30px]"/>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>

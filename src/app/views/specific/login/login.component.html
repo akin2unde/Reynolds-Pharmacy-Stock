@@ -1,0 +1,20 @@
+<div class="bg-primary-100 h-full grid grid-cols-2">
+    <div class="overflow-hidden rounded-lg">
+        <img [src]="getSvg('img1.svg',true)" class="object-contain "/>
+    </div>
+        <form #fm="ngForm">
+            <div class=" flex flex-col items-center mt-32 gap-2">
+                <h1 class="text-primary-darkest text-2xl font-bold">Login</h1>
+                <div class="form-control-group" #frmControlEmail>
+                    <label class="text-sm" for="email" class="form-control-label">Username</label>
+                    <input frm-ctrl-val [email]=true [blockLeadTrailSpace]="true" [parent]="frmControlEmail" [valueRequired]="true" type="text" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" placeholder="Username"  class="form-control-input" >
+                </div>
+                <div class="form-control-group" #frmControlPassword>
+                    <label class="text-sm" for="form-control-label"></label>
+                    <input frm-ctrl-val [minLen]=3 [blockLeadTrailSpace]="true" [parent]="frmControlPassword" [valueRequired]="true" type="password" id="password" name="password"  #password="ngModel" [(ngModel)]="user.password" placeholder="Password"  class="form-control-input" >
+                </div>
+                <button [ngClass]="{'disable':fm.invalid}" class="btn m-4 w-24 text-lg" (click)="login()">Log in</button>
+            </div>  
+        </form>
+</div>
+

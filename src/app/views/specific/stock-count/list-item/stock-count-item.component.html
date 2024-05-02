@@ -1,0 +1,43 @@
+<div class="h-full container flex flex-col">
+     <div class="flex justify-end" *ngIf="storeCount.status!= status.completed && storeCount.status!= status.abandoned">
+        <button  class="btn m-4 w-[98px]  !bg-green-700" (click)="storeCount.status= status.completed; save()">Complete</button>
+        <button  class="btn m-4 w-24 !bg-orange-500" (click)="storeCount.status= status.pending; save()">Save</button>
+        <button  class="btn m-4 w-[98px] !bg-red-700" (click)="storeCount.status= status.abandoned; save()">Abandone</button>
+    </div>
+    <hr class="h-px my-4 bg-primary-200 border-0 dark:bg-gray-700">
+       <!-- Items -->
+    <div class="p-4  grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"> 
+      @for (item of storeCount.itemObjects; track item; let index= $index) {
+           <div class=" bg-white rounded-lg shadow-lg p-4 mx-2 ">
+            <div class="flex justify-between">
+               <span class="text-sm text-primary-400 flex items-center">
+                {{item.sku}}
+               </span> 
+                </div>
+            
+               <div class="flex  mt-1">
+                    <img [src]="getSvg('drug.svg')" class="object-contain w-10 h-10"/>
+                   <h3 class="my-2 ml-3 text-lg font-bold text-gray-800">{{item.name}}</h3>
+               </div>
+               <hr class="h-px my-4 bg-primary-200 border-0 dark:bg-gray-700">
+            <div class="flex justify-between">
+        <form #fm="ngForm">
+            <div class=" flex  gap-2">
+                <div class="form-control-group" #frmControlQty>
+                    <label class="text-sm" for="qty" class="form-control-label">Qty</label>
+                    <input frm-ctrl-val  [parent]="frmControlQty" [valueRequired]="true" type="number" id="qty" name="qty" #qty="ngModel" [(ngModel)]="item.quantity" placeholder="Quantity"  class="form-control-input" disabled >
+                </div>
+                <div class="form-control-group" #frmControlQtyC>
+                    <label class="text-sm" for="qtyC" class="form-control-label">Qty Count</label>
+                    <input frm-ctrl-val  [parent]="frmControlQtyC" [valueRequired]="true" type="number" id="qtyc" name="qtyc" #qtyc="ngModel" [(ngModel)]="item.quantityCount" placeholder="Quantity Count"  class="form-control-input" >
+                </div>
+                </div>
+        </form>
+            </div>
+            </div>
+       }
+    </div>
+
+  
+
+</div>
